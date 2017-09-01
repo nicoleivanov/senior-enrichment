@@ -1,14 +1,17 @@
 'use strict'
 import React from 'react'
-import {render} from 'react-dom'
+import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
 import store from './store'
-import Root from './components/Root'
+import Routes from './Routes.js'
+import Navbar from './components/Navbar.js'
 
-render (
+console.log("in main.js")
+
+ReactDOM.render (
   <Provider store={store}>
-    <Root/>
+    <Routes />
   </Provider>,
   document.getElementById('main')
-)
+);

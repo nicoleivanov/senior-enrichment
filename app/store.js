@@ -202,14 +202,26 @@ export function deleteCampus(campus, history) {
     }
 }
 
-export function updateStudentdb(student) {
+// export function updateStudentdb(student) {
+//     return function thunk(dispatch) {
+//         return axios.put(`api/students/${student.id}`)
+//         .then(res => res.data)
+//         .then(student => {
+//             dispatch(updateStudent(student))
+//         })
+//     }
+// }
+
+export function updateStudentdb(student, history) {
     return function thunk(dispatch) {
-        return axios.put(`api/students/${student.id}`)
-        .then(student => {
-            dispatch(updateStudent(student))
+        return axios.put(`/api/students/${student.id}`)
+        .then(res => res.data)
+        .then(updatedStudent => {
+            console.log("in axios request")
+            dispatch(updateStudent(updatedStudent))
+            history.push(`/students/${updatedStudent.id}`)
         })
     }
 }
-
 
 export default createStore(rootReducer, applyMiddleware(thunkMiddleware, createLogger()))

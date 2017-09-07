@@ -27,15 +27,27 @@ router.post('/', (req, res, next) => {
 })
 
 // PUT /api/students/:studentId
+// router.put('/:studentId', (req, res, next) => {
+//   Student.findById(req.params.studentId)
+//     .then(student => {
+//         student.update(req.body)
+//     }, {returning: true})
+//     .then((student) => {
+//         res.json(student)})
+//     .catch(next)
+// });
 router.put('/:studentId', (req, res, next) => {
-  Student.findById(req.params.studentId)
-    .then(student => {
-        return student.update(req.body)
-    }, {returning: true})
-    .then((student) => {
-        res.json(student)})
-    .catch(next)
-});
+  Student.update(req.body, {
+    where: { id: req.params.studentId },
+    returning: true,
+    plain: true
+  })
+  .spread((numRows, student) => {
+    res.json(student)
+  })
+  .catch(next)
+})
+
 
 // DELETE /api/students/:studentId
 router.delete('/:studentId', (req, res, next) => {

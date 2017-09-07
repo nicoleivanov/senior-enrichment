@@ -10,6 +10,9 @@ class SingleStudent extends React.Component {
         super(props)
     }
 
+    componentDidMount() {
+
+    }
 
     render() {
         const { students } = this.props;
@@ -17,14 +20,14 @@ class SingleStudent extends React.Component {
         function findstudent(student) {
             return student.id === studentId
         }
-        const student = students.find(findstudent);
+        const student = students && students.find(findstudent);
 
         return (
         
             <div>
                 <div>Name: {student && student.name}</div>
                 <div>Email: {student && student.email}</div>
-                <Link to={`/campuses/${student.campusId}`} ><div>Campus: {student && student.campus.name}</div> </Link>
+                <Link to={`/campuses/${student && student.campusId}`} ><div>Campus: {student && student.campus.name}</div> </Link>
                 <UpdateStudent student={student && student} />
             </div>
         )

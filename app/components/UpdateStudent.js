@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import store, { updateStudentdb, updateStudent } from '../store.js';
+import store, { updateStudentdb } from '../store.js';
 
 
 class UpdateStudent extends React.Component {
@@ -14,9 +14,9 @@ class UpdateStudent extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault()
-        const studentId = this.props.match.params.id
-        console.log("event.target", event.target)
+        const studentId = Number(this.props.match.params.studentId)
         const newStudent = {
+            id: studentId,
             name: event.target.name.value,
             email: event.target.email.value,
             campusId: event.target.campus.value
@@ -64,7 +64,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch, ownProps) {
     return {
         updateStudent(student) {
-            dispatch(updateStudentdb(student))
+            dispatch(updateStudentdb(student, ownProps.history))
         }
     }
 }
